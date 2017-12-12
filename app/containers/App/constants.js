@@ -12,4 +12,10 @@
 export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
 export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
 export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+export const GENERIC_ERROR = 'boilerplate/App/GENERIC_ERROR';
+export const LOADING = 'boilerplate/App/LOADING';
+
 export const DEFAULT_LOCALE = 'en';
+
+export const BASE_URL = 'http://52.210.187.56:8989/ufirst-dev/api/v1';
+

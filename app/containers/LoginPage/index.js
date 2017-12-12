@@ -10,13 +10,16 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import { makeSelectRepos, makeSelectLoading, makeSelectError } from 'containers/App/selectors';
+import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import Input from 'components/Input';
 import Space from 'components/Space';
 import Section from 'components/Section';
 import Button from 'components/Button';
 import CenteredSection from 'components/CenteredSection';
+import LoadingIndicator from 'components/LoadingIndicator';
+import ErrorGeneric from 'components/ErrorGeneric';
+
 
 // Should be included in every component
 import messages from './messages';
@@ -33,15 +36,51 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
    */
   componentDidMount() {
     if (this.props.email && this.props.email.trim().length > 0 && this.props.password) {
-      this.props.onSubmitForm();
+      this.props.onLoginEmail();
     }
   }
 
-  onloginEmailClick = () => {
+  onLoginEmailClick = () => {
     this.props.onLoginEmail();
+  };
+
+  renderButton() {
+    const { onLoginEmail } = this.props;
+
+    return (
+      <Section>
+        <Button
+          onClick={onLoginEmail}
+        >
+          Login button
+        </Button>
+      </Section>
+    );
+  }
+
+  renderLoginStatus() {
+    const { loading, error } = this.props;
+
+    if (loading) {
+      return <LoadingIndicator />;
+    } else if (error) {
+      return (
+        <Section>
+          <ErrorGeneric />
+          { this.renderButton() }
+        </Section>
+      );
+    }
+
+    return (
+      <Section>
+        { this.renderButton() }
+      </Section>
+    );
   }
 
   render() {
+    const { email, password } = this.props;
     return (
       <article>
         <Helmet>
@@ -63,7 +102,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
                   id="email"
                   type="text"
                   placeholder="Your email"
-                  value={this.props.email}
+                  value={email}
                   onChange={this.props.onChangeEmail}
                 />
               </label>
@@ -76,18 +115,13 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
                   id="password"
                   type="password"
                   placeholder="Your password"
-                  value={this.props.password}
+                  value={password}
                   onChange={this.props.onChangePassword}
                 />
               </label>
             </Section>
-            <Section>
-              <Button
-                onClick={this.props.onLoginEmail}
-              >
-                Login button
-              </Button>
-            </Section>
+
+            {this.renderLoginStatus()}
 
           </CenteredSection>
         </div>
@@ -97,8 +131,12 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
 }
 
 LoginPage.propTypes = {
-
-  onSubmitForm: PropTypes.func,
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  // Individual
   onLoginEmail: PropTypes.func,
   email: PropTypes.string,
   password: PropTypes.string,
@@ -111,12 +149,10 @@ export function mapDispatchToProps(dispatch) {
     onChangeEmail: (evt) => dispatch(changeEmail(evt.target.value)),
     onChangePassword: (evt) => dispatch(changePassword(evt.target.value)),
     onLoginEmail: () => dispatch(loginEmail()),
-    // onLoginEmail: () => dispatch(loadRepos()),
   };
 }
 
 const mapStateToProps = createStructuredSelector({
-  repos: makeSelectRepos(),
   email: makeSelectEmail(),
   password: makeSelectPassword(),
   loading: makeSelectLoading(),

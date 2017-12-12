@@ -4,6 +4,7 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+import { genericError, loading } from 'containers/App/actions';
 
 import { loginEmailSuccess, loginEmailError } from './actions';
 import { LOGIN_EMAIL, LOGIN_EMAIL_URL } from './constants';
@@ -16,22 +17,31 @@ function* loginFromServerSaga() {
   // Select email from store
   const email = yield select(makeSelectEmail());
   const password = yield select(makeSelectPassword());
-  const loginUrl = LOGIN_EMAIL_URL;
 
   try {
-    // Call our request helper (see 'utils/request')
-    const result = yield call(loginFromServer, loginUrl, email, password);
+    yield put(loading(true));
+    const result = yield call(loginFromServer, LOGIN_EMAIL_URL, email, password);
     const auth = Object.assign({}, result);
-    auth.platform = 'web';
-
     yield put(loginEmailSuccess(auth));
+    yield put(loading(false));
   } catch (err) {
     yield put(loginEmailError(err));
+    yield put(loading(false));
+    yield put(genericError(err));
   }
 }
 
 
 function loginFromServer(loginUrl, email, password) {
+  const data = {
+    auth: {
+      email,
+      token: password,
+      channel: 'web',
+      userType: 'USER',
+    },
+  };
+
   return axios({
     method: 'post',
     url: loginUrl,
@@ -39,14 +49,12 @@ function loginFromServer(loginUrl, email, password) {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    data: {
-      email,
-      token: password,
-    },
+    data,
   })
     .then((response) => {
-      console.log(response.data);
-      console.log(`Login Response: ${response.data}`);
+      const responseData = response.data;
+      console.log(`Login Response: ${responseData.json()}`);
+      return responseData;
     })
     .catch((error) => {
       console.log(`Login error: ${error}`);

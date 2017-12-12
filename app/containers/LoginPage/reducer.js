@@ -4,6 +4,8 @@ import {
   CHANGE_EMAIL,
   CHANGE_PASSWORD,
   LOGIN_EMAIL,
+  LOGIN_EMAIL_SUCCESS,
+  LOGIN_EMAIL_ERROR,
 } from './constants';
 
 // The initial state of the App
@@ -24,6 +26,13 @@ function loginReducer(state = initialState, action) {
       return state
         .set('loading', true)
         .set('error', false);
+    case LOGIN_EMAIL_SUCCESS:
+      return state
+        .set('loading', false);
+    case LOGIN_EMAIL_ERROR:
+      return state
+        .set('error', action.error)
+        .set('loading', false);
     default:
       return state;
   }

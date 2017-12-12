@@ -19,7 +19,24 @@ import {
   LOAD_REPOS,
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS_ERROR,
+  GENERIC_ERROR,
+  LOADING,
 } from './constants';
+
+
+export function genericError(error) {
+  return {
+    type: GENERIC_ERROR,
+    error,
+  };
+}
+
+export function loading(isLoading) {
+  return {
+    type: LOADING,
+    isLoading,
+  };
+}
 
 /**
  * Load the repositories, this action starts the request saga
