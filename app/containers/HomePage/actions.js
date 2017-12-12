@@ -24,7 +24,7 @@ import {
  *
  * @param  {name} name The new text of the input field
  *
- * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @return {object}    An action object with a type of CHANGE_EMAIL
  */
 export function changeUsername(name) {
   return {
