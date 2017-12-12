@@ -10,6 +10,13 @@ import { loginEmailSuccess, loginEmailError } from './actions';
 import { LOGIN_EMAIL, LOGIN_EMAIL_URL } from './constants';
 import { makeSelectEmail, makeSelectPassword } from './selectors';
 
+function* sleep() {
+  yield new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(5);
+    }, 5000);
+  });
+}
 /**
  * Github repos request/response handler
  */
@@ -20,6 +27,7 @@ function* loginFromServerSaga() {
 
   try {
     yield put(loading(true));
+    yield sleep().next().value.then((n) => console.log(n));
     const result = yield call(loginFromServer, LOGIN_EMAIL_URL, email, password);
     const auth = Object.assign({}, result);
     yield put(loginEmailSuccess(auth));
@@ -53,7 +61,8 @@ function loginFromServer(loginUrl, email, password) {
   })
     .then((response) => {
       const responseData = response.data;
-      console.log(`Login Response: ${responseData.json()}`);
+      console.log('Login Response: ');
+      console.log(responseData);
       return responseData;
     })
     .catch((error) => {

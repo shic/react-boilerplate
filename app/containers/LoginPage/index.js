@@ -122,7 +122,9 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
             </Section>
 
             {this.renderLoginStatus()}
-
+            <text>
+              {}
+            </text>
           </CenteredSection>
         </div>
       </article>
