@@ -1,9 +1,9 @@
-/*
- * Follow this format:
- * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
- */
-
 import { BASE_URL } from 'containers/App/constants';
+
+export const ERROR = 'boilerplate/LoginPage/ERROR';
+export const LOADING = 'boilerplate/LoginPage/LOADING';
+export const STATE_IS_LOADING = 'boilerplate/LoginPage/STATE_IS_LOADING';
+
 
 export const LOGIN_EMAIL = 'boilerplate/LoginPage/LOGIN_EMAIL';
 export const CHANGE_EMAIL = 'boilerplate/LoginPage/CHANGE_EMAIL';

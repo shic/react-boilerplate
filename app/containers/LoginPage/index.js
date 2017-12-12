@@ -10,7 +10,6 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import { makeSelectLoading, makeSelectError } from 'containers/App/selectors';
 import H2 from 'components/H2';
 import Input from 'components/Input';
 import Space from 'components/Space';
@@ -29,7 +28,7 @@ import saga from './saga';
 
 // Optional
 import { changeEmail, changePassword, loginEmail } from './actions';
-import { makeSelectEmail, makeSelectPassword } from './selectors';
+import { makeSelectLoading, makeSelectError, makeSelectEmail, makeSelectPassword } from './selectors';
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   /**

@@ -4,9 +4,8 @@
 
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import { genericError, loading } from 'containers/App/actions';
 
-import { loginEmailSuccess, loginEmailError } from './actions';
+import { genericError, loading, loginEmailSuccess, loginEmailError } from './actions';
 import { LOGIN_EMAIL, LOGIN_EMAIL_URL } from './constants';
 import { makeSelectEmail, makeSelectPassword } from './selectors';
 

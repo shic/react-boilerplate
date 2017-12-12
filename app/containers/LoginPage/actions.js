@@ -1,11 +1,28 @@
 
 import {
+  ERROR,
+  LOADING,
   LOGIN_EMAIL,
   CHANGE_EMAIL,
   CHANGE_PASSWORD,
   LOGIN_EMAIL_SUCCESS,
   LOGIN_EMAIL_ERROR,
 } from './constants';
+
+export function genericError(error) {
+  return {
+    type: ERROR,
+    error,
+  };
+}
+
+export function loading(isLoading) {
+  return {
+    type: LOADING,
+    isLoading,
+  };
+}
+
 
 export function changeEmail(email) {
   return {
