@@ -18,7 +18,8 @@ import Section from 'components/Section';
 import Button from 'components/Button';
 import CenteredSection from 'components/CenteredSection';
 import LoadingIndicator from 'components/LoadingIndicator';
-import ErrorGeneric from 'components/ErrorGeneric';
+// import ErrorGeneric from 'components/ErrorGeneric';
+import ErrorNetwork from 'components/ErrorNetwork';
 
 
 // Should be included in every component
@@ -35,9 +36,11 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
    * when initial state email is not null, submit the form to load repos
    */
   componentDidMount() {
-    if (this.props.email && this.props.email.trim().length > 0 && this.props.password) {
-      this.props.onLoginEmail();
-    }
+    /*
+        if (this.props.email && this.props.email.trim().length > 0 && this.props.password) {
+          this.props.onLoginEmail();
+        }
+    */
   }
 
   onLoginEmailClick = () => {
@@ -48,13 +51,13 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
     const { onLoginEmail } = this.props;
 
     return (
-      <Section>
+      <label htmlFor="LoginButton">
         <Button
           onClick={onLoginEmail}
         >
           Login button
         </Button>
-      </Section>
+      </label>
     );
   }
 
@@ -65,16 +68,16 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
       return <LoadingIndicator />;
     } else if (error) {
       return (
-        <Section>
-          <ErrorGeneric />
-          { this.renderButton() }
-        </Section>
+        <div>
+          <ErrorNetwork error={error} />
+          {this.renderButton()}
+        </div>
       );
     }
 
     return (
       <Section>
-        { this.renderButton() }
+        {this.renderButton()}
       </Section>
     );
   }
@@ -122,9 +125,6 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
             </Section>
 
             {this.renderLoginStatus()}
-            <text>
-              {}
-            </text>
           </CenteredSection>
         </div>
       </article>

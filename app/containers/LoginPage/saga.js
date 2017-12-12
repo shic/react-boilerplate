@@ -14,7 +14,7 @@ function* sleep() {
   yield new Promise((resolve) => {
     setTimeout(() => {
       resolve(5);
-    }, 5000);
+    }, 1000);
   });
 }
 /**
@@ -61,13 +61,13 @@ function loginFromServer(loginUrl, email, password) {
   })
     .then((response) => {
       const responseData = response.data;
-      console.log('Login Response: ');
-      console.log(responseData);
+      console.log('Login Response: ', responseData);
       return responseData;
     })
     .catch((error) => {
-      console.log(`Login error: ${error}`);
-      throw error;
+      const errorResponse = error.response;
+      console.log('Login error: ', errorResponse);
+      throw errorResponse;
     });
 }
   /**
