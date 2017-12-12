@@ -1,8 +1,12 @@
 /**
  * The global state selectors
  */
-
 import { createSelector } from 'reselect';
+
+import {
+  STATE_IS_LOADING,
+} from './constants';
+
 
 const selectGlobal = (state) => state.get('global');
 
@@ -15,7 +19,7 @@ const makeSelectCurrentUser = () => createSelector(
 
 const makeSelectLoading = () => createSelector(
   selectGlobal,
-  (globalState) => globalState.get('isLoading')
+  (globalState) => globalState.get(STATE_IS_LOADING)
 );
 
 const makeSelectError = () => createSelector(

@@ -14,6 +14,7 @@ export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
 export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
 export const GENERIC_ERROR = 'boilerplate/App/GENERIC_ERROR';
 export const LOADING = 'boilerplate/App/LOADING';
+export const STATE_IS_LOADING = 'isLoading';
 
 export const DEFAULT_LOCALE = 'en';
 

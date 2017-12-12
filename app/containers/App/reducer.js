@@ -18,6 +18,7 @@ import {
   LOAD_REPOS_ERROR,
   GENERIC_ERROR,
   LOADING,
+  STATE_IS_LOADING,
 } from './constants';
 
 // The initial state of the App
@@ -37,7 +38,7 @@ function appReducer(state = initialState, action) {
         .set('error', action.error);
     case LOADING:
       return state
-        .set('isLoading', action.isLoading);
+        .set(STATE_IS_LOADING, action.isLoading);
     case LOAD_REPOS:
       return state
         .set('loading', true)
