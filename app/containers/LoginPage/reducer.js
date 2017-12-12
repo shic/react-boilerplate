@@ -16,7 +16,7 @@ function loginReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_EMAIL:
       return state
-        .set('username', action.username);
+        .set('email', action.email);
     case CHANGE_PASSWORD:
       return state
         .set('password', action.password);
